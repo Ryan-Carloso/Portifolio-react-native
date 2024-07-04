@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, SafeAreaView, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native-web';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import ProjectScreen from './components/ProjectScreen'; // Import corrected to ProjectScreen
+import ProjectScreen from './components/ProjectScreen'; // Ensure correct path to ProjectScreen
+import imageryan from './assets/images/ryan.jpg'
 
 const Stack = createStackNavigator();
 
@@ -27,10 +28,10 @@ const App = () => {
 
 const MainScreen = ({ navigation }) => {
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <View style={styles.profile}>
                 <View style={styles.profileImage}>
-                    <Image source={require('./ryan.jpg')} style={styles.image} />
+                    <Image source={imageryan} style={styles.image} />
                 </View>
                 <View style={styles.profileInfo}>
                     <Text style={styles.name}>Hi, my name is Ryan</Text>
@@ -47,11 +48,11 @@ const MainScreen = ({ navigation }) => {
                     <Text style={styles.buttonText}>Portfolio</Text>
                 </TouchableOpacity>
             </View>
-        </SafeAreaView>
+        </View>
     );
 };
 
-const styles = StyleSheet.create({
+const styles = {
     container: {
         flex: 1,
         justifyContent: 'center',
@@ -65,8 +66,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     profileImage: {
-        width: 100,
-        height: 100,
+        width: 400,
+        height: 400,
         borderRadius: 50,
         overflow: 'hidden',
         marginRight: 20,
@@ -105,6 +106,6 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
     },
-});
+};
 
 export default App;
