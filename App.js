@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import ProjectScreen from './components/ProjectScreen'; // Import corrected to ProjectScreen
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import MyPortifolio from './components/Portifolio';
 
 
 
@@ -23,6 +24,11 @@ const App = () => {
                     name="ProjectScreen"
                     component={ProjectScreen}
                     options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="MyPortifolio"
+                    component={MyPortifolio}
+                    options={{ headerShown: true }}
                 />
             </Stack.Navigator>
         </NavigationContainer>
@@ -48,7 +54,10 @@ const MainScreen = ({ navigation }) => {
                     <Text style={styles.buttonText}>Education</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ProjectScreen')}>
-                    <Text style={styles.buttonText}>Portfolio</Text>
+                    <Text style={styles.buttonText}>Components</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('MyPortifolio')}>
+                    <Text style={styles.buttonText}>MyPortifolio</Text>
                 </TouchableOpacity>
             </View>
             <Text style={styles.ContainerText} >My social media and contacts</Text>
@@ -162,17 +171,17 @@ const styles = StyleSheet.create({
         width: '60%',
     },
     button: {
-        backgroundColor: '#007AFF',
+        backgroundColor: 'green',
         paddingVertical: 15,
         paddingHorizontal: 30,
-        borderRadius: 5,
+        borderRadius: 20,
         marginBottom: 10,
     },
     buttonText: {
         color: '#fff',
         textAlign: 'center',
         fontSize: 18,
-        fontWeight: 'bold',
+        fontWeight: '900',
     },
 });
 

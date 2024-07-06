@@ -67,7 +67,8 @@ const ButtonStyle1 = ({ onPress }) => {
 const styles = StyleSheet.create({
     wrapper: {
         alignItems: 'center',
-        marginVertical: 10,
+        backgroundColor: '#fff',
+        flex: 1,
     },
     bigButton: {
         backgroundColor: '#007bff',
@@ -75,6 +76,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         alignItems: 'center',
         marginBottom: 10,
+        marginTop: 100,
     },
     bigButtonText: {
         color: '#fff',

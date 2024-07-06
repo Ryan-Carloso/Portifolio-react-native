@@ -1,11 +1,10 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { SafeAreaView, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Carousel from './Carousel'; // Assuming Carousel is correctly implemented
-import ButtonStyle1 from './buttonStyle'; // Assuming BotaoEstilizado is correctly implemented
-import Carousel3D  from './Carousel3D'
-import MenuNav from "./MenuNav"
-
+import ButtonStyle1 from './buttonStyle'; // Assuming ButtonStyle1 is correctly implemented
+import Carousel3D from './Carousel3D'; // Assuming Carousel3D is correctly implemented
+import MenuNav from './MenuNav'; // Assuming MenuNav is correctly implemented
 
 const Stack = createStackNavigator();
 
@@ -17,7 +16,6 @@ const ProjectScreen = ({ navigation }) => {
                 component={HomeScreen}
                 options={{ title: 'Portfolio' }}
             />
-
             <Stack.Screen
                 name="ButtonStyle"
                 component={ButtonStyle1}
@@ -44,27 +42,33 @@ const ProjectScreen = ({ navigation }) => {
 
 const HomeScreen = ({ navigation }) => {
     return (
-        <View style={styles.container}>
-            <Text style={styles.titulo}>Portfolio</Text>
-            <Button
-                title="ButtonStyle"
+        <SafeAreaView style={styles.container}>
+            <Text style={styles.title}>Components</Text>
+            <TouchableOpacity
+                style={styles.button}
                 onPress={() => navigation.navigate('ButtonStyle')}
-            />
-            <Button
-                title="Carousel"
+            >
+                <Text style={styles.buttonText}>ButtonStyle</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.button}
                 onPress={() => navigation.navigate('CarouselPage')}
-            />
-
-              <Button
-                title="Carousel3D"
+            >
+                <Text style={styles.buttonText}>Carousel</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.button}
                 onPress={() => navigation.navigate('Carousel3D')}
-            />
-
-              <Button
-                title="MenuNav"
+            >
+                <Text style={styles.buttonText}>Carousel3D</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.button}
                 onPress={() => navigation.navigate('MenuNav')}
-            />
-        </View>
+            >
+                <Text style={styles.buttonText}>MenuNav</Text>
+            </TouchableOpacity>
+        </SafeAreaView>
     );
 };
 
@@ -74,11 +78,27 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
+        backgroundColor: '#fff',
+
     },
-    titulo: {
+    title: {
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,
+    },
+    button: {
+        backgroundColor: 'green',
+        padding: 10,
+        marginBottom: 10,
+        width: '70%',
+        alignItems: 'center',
+        borderRadius: 20,
+    },
+    buttonText: {
+        fontSize: 18,
+        color: 'white',
+        fontFamily: "Open Sans",
+        fontWeight: '800',
     },
 });
 
