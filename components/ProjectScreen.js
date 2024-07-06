@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Carousel from './Carousel'; // Assuming Carousel is correctly implemented
 import ButtonStyle1 from './buttonStyle'; // Assuming BotaoEstilizado is correctly implemented
+import Carousel3D  from './Carousel3D'
+
 
 const Stack = createStackNavigator();
 
@@ -24,6 +26,11 @@ const ProjectScreen = ({ navigation }) => {
                 component={ButtonStyle1}
                 options={{ title: 'ButtonStyle1' }}
             />
+            <Stack.Screen
+                name="Carousel3D"
+                component={Carousel3D}
+                options={{ title: 'Carousel3D' }}
+            />
         </Stack.Navigator>
     );
 };
@@ -32,20 +39,18 @@ const HomeScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.titulo}>Portfolio</Text>
-            {/* TouchableOpacity for Carousel */}
-            <TouchableOpacity
-                style={styles.button}
+            <Button
+                title="Carousel"
                 onPress={() => navigation.navigate('CarouselPage')}
-            >
-                <Text style={styles.buttonText}>Carousel</Text>
-            </TouchableOpacity>
-            {/* TouchableOpacity for ButtonStyle1 */}
-            <TouchableOpacity
-                style={styles.button}
+            />
+            <Button
+                title="ButtonStyle1"
                 onPress={() => navigation.navigate('ButtonStyle1')}
-            >
-                <Text style={styles.buttonText}>ButtonStyle1</Text>
-            </TouchableOpacity>
+            />
+              <Button
+                title="Carousel3D"
+                onPress={() => navigation.navigate('Carousel3D')}
+            />
         </View>
     );
 };
@@ -61,18 +66,6 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,
-    },
-    button: {
-        backgroundColor: '#007AFF', // Example background color
-        paddingVertical: 12,
-        paddingHorizontal: 24,
-        borderRadius: 6,
-        marginBottom: 10,
-    },
-    buttonText: {
-        fontSize: 18,
-        color: '#FFF', // Example text color
-        textAlign: 'center',
     },
 });
 

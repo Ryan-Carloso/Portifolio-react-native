@@ -1,18 +1,21 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native-web';
+import { View, Text, SafeAreaView, StyleSheet, Image, TouchableOpacity, Linking, fontSize } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import ProjectScreen from './components/ProjectScreen'; // Ensure correct path to ProjectScreen
-import imageryan from './assets/images/ryan.jpg'
+import ProjectScreen from './components/ProjectScreen'; // Import corrected to ProjectScreen
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import AntDesign from '@expo/vector-icons/AntDesign';
+
+
 
 const Stack = createStackNavigator();
 
 const App = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Main">
+            <Stack.Navigator initialRouteName="Home">
                 <Stack.Screen
-                    name="Main"
+                    name="Home"
                     component={MainScreen}
                     options={{ headerShown: false }}
                 />
@@ -28,10 +31,10 @@ const App = () => {
 
 const MainScreen = ({ navigation }) => {
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <View style={styles.profile}>
                 <View style={styles.profileImage}>
-                    <Image source={imageryan} style={styles.image} />
+                    <Image source={require('./ryan.jpg')} style={styles.image} />
                 </View>
                 <View style={styles.profileInfo}>
                     <Text style={styles.name}>Hi, my name is Ryan</Text>
@@ -48,11 +51,62 @@ const MainScreen = ({ navigation }) => {
                     <Text style={styles.buttonText}>Portfolio</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+            <Text style={styles.ContainerText} >My social media and contacts</Text>
+            <View style={styles.ContainerIcon}>
+            <TouchableOpacity
+                onPress={() => {
+                const url = 'https://youtube.com/projetoeuropam'; // Replace with your URL
+                Linking.openURL(url);
+                }}
+            >
+                <AntDesign name="youtube" size={24} color="black" />                
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => {
+                const url = 'https://www.instagram.com/projeto.europa/'; // Replace with your URL
+                Linking.openURL(url);
+                }}
+            >
+            <AntDesign name="instagram" size={24} color="black" />            
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => {
+                const url = 'https://www.linkedin.com/in/ryancarlos/'; // Replace with your URL
+                Linking.openURL(url);
+                }}
+            >
+            <AntDesign name="linkedin-square" size={24} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => {
+                const url = 'https://www.tiktok.com/@madebryan'; // Replace with your URL
+                Linking.openURL(url);
+                }}
+            >
+            <MaterialIcons name="tiktok" size={24} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => {
+                const url = 'mailto:ryancarlos16@gmail.com'; // Replace with your URL
+                Linking.openURL(url);
+                }}
+            >
+            <MaterialIcons name="email" size={24} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => {
+                const url = 'tel:+351962248268'; // Replace with your URL
+                Linking.openURL(url);
+                }}
+            >
+            <MaterialIcons name="call" size={24} color="black" />
+            </TouchableOpacity>
+            </View>
+        </SafeAreaView>
     );
 };
 
-const styles = {
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
@@ -60,14 +114,28 @@ const styles = {
         backgroundColor: '#fff',
         paddingHorizontal: 20,
     },
+    ContainerIcon: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        minWidth: '40%',
+        marginTop: '5%',
+    },
+    ContainerText: {
+        display: 'flex',
+        flexDirection: 'row',
+        fontSize: 20,
+        marginTop: '5%',
+
+    },
     profile: {
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 20,
     },
     profileImage: {
-        width: 400,
-        height: 400,
+        width: 100,
+        height: 100,
         borderRadius: 50,
         overflow: 'hidden',
         marginRight: 20,
@@ -91,7 +159,7 @@ const styles = {
     },
     buttons: {
         marginTop: 20,
-        width: '100%',
+        width: '60%',
     },
     button: {
         backgroundColor: '#007AFF',
@@ -106,6 +174,6 @@ const styles = {
         fontSize: 18,
         fontWeight: 'bold',
     },
-};
+});
 
 export default App;

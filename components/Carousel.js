@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
+import Octicons from '@expo/vector-icons/Octicons';
+
 
 const { width: viewportWidth } = Dimensions.get('window');
 
@@ -22,11 +24,13 @@ const data = [
 ];
 
 const Carousel = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0); // State for active slide index
+  const [activeDotIndex, setActiveDotIndex] = useState(0); // State for active pagination dot index
   const scrollViewRef = useRef();
 
   const scrollToIndex = (index) => {
     setActiveIndex(index);
+    setActiveDotIndex(index); // Update active dot index when clicking pagination dot
     scrollViewRef.current.scrollTo({
       animated: true,
       x: index * viewportWidth,
@@ -43,7 +47,9 @@ const Carousel = () => {
         showsHorizontalScrollIndicator={false}
         onScroll={(event) => {
           const contentOffsetX = event.nativeEvent.contentOffset.x;
-          setActiveIndex(Math.round(contentOffsetX / viewportWidth));
+          const index = Math.round(contentOffsetX / viewportWidth);
+          setActiveIndex(index);
+          setActiveDotIndex(index);
         }}
         scrollEventThrottle={200}
       >
@@ -57,18 +63,27 @@ const Carousel = () => {
       </ScrollView>
       <View style={styles.pagination}>
         {data.map((_, index) => (
-          <Text
+          <TouchableOpacity
             key={index}
             style={[
               styles.paginationDot,
-              activeIndex === index && styles.paginationDotActive,
+              activeDotIndex === index && styles.paginationDotActive,
             ]}
             onPress={() => scrollToIndex(index)}
           >
-            ⚫
-          </Text>
+            <View style={styles.dotContainer}>
+              {activeDotIndex === index ? (
+                <Octicons name="dot-fill" size={24} color="black" />
+              ) : (
+                <Octicons name="dot" size={24} color="black" />
+              )}
+            </View>
+          </TouchableOpacity>
         ))}
       </View>
+      <Text style={{ textAlign: 'center', margin: 15 }}>
+        Can be used for news site articles, app features, and ecommerce products, to creative professionals portfolios.
+      </Text>
     </View>
   );
 };
@@ -105,12 +120,20 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   paginationDot: {
-    fontSize: 24,
-    color: '#888',
     marginHorizontal: 5,
   },
   paginationDotActive: {
-    color: '#333',
+    borderRadius: 12, // Adjust the shape of the background behind the dot
+    paddingHorizontal: 5, // Adjust spacing for better appearance
+  },
+  dotContainer: {
+    width: 24, // Adjust the container width to fit the dot properly
+    height: 24, // Adjust the container height to fit the dot properly
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  dot: {
+    fontSize: 20, // Adjust the dot size if needed
   },
 });
 
