@@ -5,6 +5,7 @@ import { PanGestureHandler } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
 
+
 const { width, height } = Dimensions.get('window');
 const ITEM_WIDTH = width * 0.35; // Diminuir a largura do item
 const ITEM_HEIGHT = height * 0.25; // Diminuir a altura do item

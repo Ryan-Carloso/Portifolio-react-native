@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Carousel from './Carousel'; // Assuming Carousel is correctly implemented
 import ButtonStyle1 from './buttonStyle'; // Assuming BotaoEstilizado is correctly implemented
 import Carousel3D  from './Carousel3D'
+import MenuNav from "./MenuNav"
 
 
 const Stack = createStackNavigator();
@@ -16,20 +17,26 @@ const ProjectScreen = ({ navigation }) => {
                 component={HomeScreen}
                 options={{ title: 'Portfolio' }}
             />
+
+            <Stack.Screen
+                name="ButtonStyle"
+                component={ButtonStyle1}
+                options={{ title: 'ButtonStyle' }}
+            />
             <Stack.Screen
                 name="CarouselPage"
                 component={Carousel}
                 options={{ title: 'Carousel' }}
             />
             <Stack.Screen
-                name="ButtonStyle1"
-                component={ButtonStyle1}
-                options={{ title: 'ButtonStyle1' }}
-            />
-            <Stack.Screen
                 name="Carousel3D"
                 component={Carousel3D}
                 options={{ title: 'Carousel3D' }}
+            />
+            <Stack.Screen
+                name="MenuNav"
+                component={MenuNav}
+                options={{ title: 'MenuNav' }}
             />
         </Stack.Navigator>
     );
@@ -40,16 +47,22 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.container}>
             <Text style={styles.titulo}>Portfolio</Text>
             <Button
+                title="ButtonStyle"
+                onPress={() => navigation.navigate('ButtonStyle')}
+            />
+            <Button
                 title="Carousel"
                 onPress={() => navigation.navigate('CarouselPage')}
             />
-            <Button
-                title="ButtonStyle1"
-                onPress={() => navigation.navigate('ButtonStyle1')}
-            />
+
               <Button
                 title="Carousel3D"
                 onPress={() => navigation.navigate('Carousel3D')}
+            />
+
+              <Button
+                title="MenuNav"
+                onPress={() => navigation.navigate('MenuNav')}
             />
         </View>
     );

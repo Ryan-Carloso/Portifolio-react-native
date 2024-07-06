@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, StyleSheet, Clipboard, Alert, View } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, Alert, View } from 'react-native';
+import * as Clipboard from 'expo-clipboard';
 
 const ButtonStyle1 = ({ onPress }) => {
     const [showCode, setShowCode] = useState(false);
 
     const handleCopyCode = async () => {
-        await Clipboard.setString(codeToCopy);
+        await Clipboard.setStringAsync(codeToCopy);
         Alert.alert('O código foi copiado para a área de transferência');
     };
 

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView, Dimensions, TouchableOpacity, SafeAreaView } from 'react-native';
 import Octicons from '@expo/vector-icons/Octicons';
 
 
@@ -39,7 +39,7 @@ const Carousel = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ScrollView
         ref={scrollViewRef}
         horizontal
@@ -84,7 +84,8 @@ const Carousel = () => {
       <Text style={{ textAlign: 'center', margin: 15 }}>
         Can be used for news site articles, app features, and ecommerce products, to creative professionals portfolios.
       </Text>
-    </View>
+
+    </SafeAreaView>
   );
 };
 
