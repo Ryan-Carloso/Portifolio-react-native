@@ -1,21 +1,24 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
 
-const MyPortifolio = () => {
+
+import * as React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import MainPortifolioScreen from './Portifolio/MainPortifolioScreen';
+import ShibaHelperScreen from './Portifolio/ShibaHelperScreen';
+import SecurebitScreen from './Portifolio/SecurebitScreen';
+import GeoFinderScreen from './Portifolio/GeoFinderScreen';
+
+const PortifolioStack = createStackNavigator();
+
+const Portifolio = () => {
   return (
-    <View style={styles.container}>
-      <Text>Hello, React Native!</Text>
-    </View>
+    <PortifolioStack.Navigator initialRouteName="MainPortifolio">
+      <PortifolioStack.Screen name="MainPortifolio" component={MainPortifolioScreen} />
+      <PortifolioStack.Screen name="ShibaHelper" component={ShibaHelperScreen} />
+      <PortifolioStack.Screen name="Securebit" component={SecurebitScreen} />
+      <PortifolioStack.Screen name="GeoFinder" component={GeoFinderScreen} />
+    </PortifolioStack.Navigator>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-});
+export default Portifolio;
 
-export default MyPortifolio;

@@ -28,7 +28,7 @@ const App = () => {
                 <Stack.Screen
                     name="MyPortifolio"
                     component={MyPortifolio}
-                    options={{ headerShown: true }}
+                    options={{ headerShown: false }}
                 />
             </Stack.Navigator>
         </NavigationContainer>
