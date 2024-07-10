@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { SafeAreaView, Text, StyleSheet, TouchableOpacity, Image, ScrollView, View } from 'react-native';
+import { SafeAreaView, Text, StyleSheet, TouchableOpacity, Image, View, Dimensions } from 'react-native';
+import Animated from 'react-native-reanimated';
+import { ScrollView, GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Platform } from 'react-native-web';
 
 const projects = [
   {
@@ -30,83 +33,90 @@ const projects = [
     techsUsed: ['React Native', 'Firebase', 'React', 'CRUD'],
   },
   {
-    name: 'This Portifolio',
+    name: 'This Portfolio',
     image: 'https://firebasestorage.googleapis.com/v0/b/portifolio-c0281.appspot.com/o/_a915dc0c-2a37-43fe-9595-410c7793e299.jpeg?alt=media&token=4ba71102-aae3-4ee3-8051-4b4b5de5aaf4',
     screen: '1',
-    desc: 'portifolio',
+    desc: 'portfolio',
     date: '2024/07',
     rating: 3.2,
     techsUsed: ['React Native', 'React Native For Web', 'Firebase Storage'],
   },
 ];
 
-const MainPortifolioScreen = ({ navigation }) => {
+const MainPortfolioScreen = ({ navigation }) => {
   const [sortBy, setSortBy] = useState('date'); // 'date' or 'rating'
 
   const sortedByDate = [...projects].sort((a, b) => new Date(b.date) - new Date(a.date));
   const sortedByRating = [...projects].sort((a, b) => b.rating - a.rating);
 
-  const renderProjects = () => {
-    let sortedProjects = sortBy === 'date' ? sortedByDate : sortedByRating;
-
-    return sortedProjects.map((project) => (
-      <TouchableOpacity key={project.name} style={styles.card} onPress={() => navigation.navigate(project.screen)}>
-        <Image style={styles.cardImage} source={{ uri: project.image }} />
-        <View style={styles.cardInfo}>
-          <View style={styles.ContainerCard} >
-          <Text style={styles.cardText}>{project.name}</Text>
-          <View style={styles.bottomInfo}>
-            {sortBy === 'rating' && (
-              <Text style={styles.ratingText}> {project.rating}⭐</Text>
-            )}
-            {sortBy === 'date' && (
-              <Text style={styles.dateText}> {project.date}</Text>
-            )}
-          </View>
-          </View>
-          <Text style={styles.cardDesc}>{project.desc}</Text>
-
-          <Text style={styles.techText}>{project.techsUsed.join(', ')}</Text>
+  const renderProject = (project) => (
+    <TouchableOpacity key={project.name} style={styles.card} onPress={() => navigation.navigate(project.screen)}>
+      <Image style={styles.cardImage} source={{ uri: project.image }} />
+      <View style={styles.cardInfo}>
+        <Text style={styles.cardText}>{project.name}</Text>
+        <View style={styles.bottomInfo}>
+          {sortBy === 'rating' && (
+            <Text style={styles.ratingText}> {project.rating}⭐</Text>
+          )}
+          {sortBy === 'date' && (
+            <Text style={styles.dateText}> {project.date}</Text>
+          )}
         </View>
-      </TouchableOpacity>
-    ));
-  };
+        <Text style={styles.cardDesc}>{project.desc}</Text>
+        <Text style={styles.techText}>{project.techsUsed.join(', ')}</Text>
+      </View>
+    </TouchableOpacity>
+  );
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.titleText}>Portfolio</Text>
-      
-      <SafeAreaView style={styles.buttonsContainer}>
-        <TouchableOpacity
-          style={[styles.button, sortBy === 'date' && styles.selectedButton]}
-          onPress={() => setSortBy('date')}
-        >
-          <Text style={styles.buttonText}>Most Recently</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.button, sortBy === 'rating' && styles.selectedButton]}
-          onPress={() => setSortBy('rating')}
-        >
-          <Text style={styles.buttonText}>More Complex</Text>
-        </TouchableOpacity>
-      </SafeAreaView>
+    <GestureHandlerRootView style={styles.container}>
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.header}>
+          <Text style={styles.titleText}>Portfolio</Text>
 
-      {renderProjects()}
-    </ScrollView>
+          <View style={styles.buttonsContainer}>
+            <TouchableOpacity
+              style={[styles.button, sortBy === 'date' && styles.selectedButton]}
+              onPress={() => setSortBy('date')}
+            >
+              <Text style={styles.buttonText}>Most Recently</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.button, sortBy === 'rating' && styles.selectedButton]}
+              onPress={() => setSortBy('rating')}
+            >
+              <Text style={styles.buttonText}>More Complex</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <ScrollView contentContainerStyle={styles.listContent} style={styles.scrollView}>
+          {sortBy === 'date' ? sortedByDate.map(renderProject) : sortedByRating.map(renderProject)}
+        </ScrollView>
+      </SafeAreaView>
+    </GestureHandlerRootView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flex: 1,
+  },
+  safeArea: {
+    flex: 1,
     backgroundColor: '#fff',
-    padding: 20,
+  },
+  header: {
     paddingTop: 70,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+    backgroundColor: '#fff',
   },
   titleText: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    textAlign: 'center',
   },
   buttonsContainer: {
     flexDirection: 'row',
@@ -124,9 +134,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
+  listContent: {
+    paddingHorizontal: 20,
+  },
+  scrollView: {
+    flex: 1,
+    ...(Platform.OS === 'web' && { overflowY: 'scroll' }),
+  },
   card: {
-    flexDirection: 'row', // Alterado para row para alinhar imagem e texto lado a lado
-    alignItems: 'center', // Centraliza os itens verticalmente
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: '#f8f9fa',
     padding: 20,
     borderRadius: 10,
@@ -142,23 +159,16 @@ const styles = StyleSheet.create({
   cardInfo: {
     flex: 1,
     marginLeft: 20,
-    alignItems: 'center'
   },
   cardText: {
     fontSize: 18,
     fontWeight: '600',
     marginBottom: 5,
-    textAlign: 'center'
   },
   cardDesc: {
     fontSize: 14,
     fontWeight: '400',
     marginBottom: 5,
-    textAlign: 'center'
-    },
-  ContainerCard: {
-    flexDirection: 'row',
-
   },
   bottomInfo: {
     flexDirection: 'row',
@@ -167,19 +177,14 @@ const styles = StyleSheet.create({
   },
   ratingText: {
     fontSize: 14,
-    margin: 'auto',
-
   },
   dateText: {
     fontSize: 14,
-    margin: 'auto',
-
   },
   techText: {
     fontSize: 14,
     color: '#0000FF',
-    textAlign: 'center',
   },
 });
 
-export default MainPortifolioScreen;
+export default MainPortfolioScreen;
